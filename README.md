@@ -45,4 +45,30 @@ npm run build
 npm run lint
 ```
 
+JavaScript and TypeScript Nightly 5.0 以下
+
 npm init vue
+
+# husky、 git hooks、 commitlint
+npx husky-init && npm i
+
+commit type
+build
+chore
+ci
+docs
+feat（新功能）
+fix（修复）
+pert（性能）
+refactor（重构）
+revert
+style
+test
+
+# Install commitlint cli and conventional config
+npm install --save-dev @commitlint/{config-conventional,cli}
+# For Windows:
+npm install --save-dev @commitlint/config-conventional @commitlint/cli
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+
+npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
