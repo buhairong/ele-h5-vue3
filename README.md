@@ -45,11 +45,11 @@ npm run build
 npm run lint
 ```
 
-JavaScript and TypeScript Nightly 5.0 以下
+安装vscode插件 JavaScript and TypeScript Nightly 5.0 以下
 
 npm init vue
 
-# husky、 git hooks、 commitlint
+## husky、 git hooks、 commitlint
 npx husky-init && npm i
 
 commit type
@@ -72,3 +72,48 @@ npm install --save-dev @commitlint/config-conventional @commitlint/cli
 echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
 
 npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
+
+
+## eslint、prettier
+安装vscode插件 ESLint
+
+.eslintrc.cjs 文件里新建规则
+rules: {
+    "no-console": "error"
+},
+
+新建 prettierrc.js 文件
+module.exports = {
+    printWidth: 100, // 单行字符数最多 100 个
+    tabWidth: 2, // tab键为 2个空格
+    useTabs: false, // 不使用制表符缩进，使用空格缩进
+    semi: false, // 不使用分号结尾
+    singleQuote: true, // 使用单引号
+    bracketSpacing: true // 对象左右两侧都需要空格
+}
+
+
+## lint-staged
+lint-staged 是用来在 commit 代码前来统一运行校验任务的
+
+npm i lint-staged -D
+将 .husky/pre commit 文件里的 npm test 改成 npm run pre-commit
+修改 package.json。在 scripts 里增加 pre-commit 命令，另外还需要在 scripts 同层增加 lint-staged 的配置。
+"scripts": {
+  "dev": "vite",
+  "build": "run-p type-check build-only",
+  "preview": "vite preview --port 4173",
+  "build-only": "vite build",
+  "type-check": "vue-tsc --noEmit",
+  "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+  "prepare": "husky install",
+  // 在这里增加 pre-commit 命令
+  "pre-commit": "lint-staged"
+},
+// 在这里增加 lint-staged 配置
+"lint-staged": {
+  "src/**/*.{ts,vue}": [
+    "prettier --write",
+    "eslint --fix"
+  ]
+},
