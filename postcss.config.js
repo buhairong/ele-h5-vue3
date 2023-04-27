@@ -5,7 +5,7 @@ module.exports = {
     },
     'postcss-pxtorem': {
       // 根节点的 fontSize 值
-      rootValue: 16,
+      rootValue: 37.5,
       propList: ['*'],
       selectorBlackList: [':root']
     }
