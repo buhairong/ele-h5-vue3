@@ -120,3 +120,11 @@ npm i lint-staged -D
 
 ## vant-ui
 https://vant-ui.github.io/vant/#/zh-CN/home
+
+## 使用 json-server 搭建 Mock Server
+https://github.com/typicode/json-server#module
+
+## 使用 post-css 实现移动端适配
+https://postcss.org/
+
+npm i postcss autoprefixer postcss-pxtorem -D
