@@ -1,12 +1,13 @@
 <template>
   <div class="home-page">
-    <SearchView></SearchView>
-    <TheTop :recomments="recomments" />
+    <SearchView v-if="isSearchViewShow" @cancel="toggleSearchView"></SearchView>
+    <TheTop :recomments="recomments" @searchClick="toggleSearchView" />
   </div>
 </template>
 
 <script setup lang="ts">
 import TheTop from './components/TheTop.vue'
+import SearchView from '@/views/search/SearchView.vue'
 import { useToggle } from '@/use/useToggle'
 
 const recomments = [
@@ -20,11 +21,7 @@ const recomments = [
   }
 ]
 
-const [isSearchViewShow, toggleSearchView] = useToggle()
+const [isSearchViewShow, toggleSearchView] = useToggle(false)
 </script>
 
-<style>
-.test {
-  font-size: 37.5px;
-}
-</style>
+<style lang="scss" scoped></style>
