@@ -1,11 +1,13 @@
 <template>
   <div class="home-page">
+    <SearchView></SearchView>
     <TheTop :recomments="recomments" />
   </div>
 </template>
 
 <script setup lang="ts">
 import TheTop from './components/TheTop.vue'
+import { useToggle } from '@/use/useToggle'
 
 const recomments = [
   {
@@ -17,6 +19,8 @@ const recomments = [
     label: '色拉'
   }
 ]
+
+const [isSearchViewShow, toggleSearchView] = useToggle()
 </script>
 
 <style>

@@ -6,7 +6,7 @@
 import { RouterView } from 'vue-router'
 </script>
 
-<style scoped>
+<style>
 @import 'normalize.css';
 
 #app {
