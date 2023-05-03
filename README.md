@@ -115,12 +115,6 @@ npm i lint-staged -D
 "pre-commit": "lint-staged"
 },
 // 在这里增加 lint-staged 配置
-"lint-staged": {
-"src/\*_/_.{ts,vue}": [
-"prettier --write",
-"eslint --fix"
-]
-},
 
 ## vant-ui
 

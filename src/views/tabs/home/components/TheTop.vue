@@ -22,7 +22,7 @@
       @inputClick="emits('searchClick')"
     >
       <template #right-icon>
-        <div>搜索</div>
+        <div @click="emits('searchClick')">搜索</div>
       </template>
     </OpSearch>
     <div class="search-recommend">
