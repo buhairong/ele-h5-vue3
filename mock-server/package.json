@@ -1,5 +1,5 @@
 {
-  "name": "mock-server",
+  "name": "ele-h5-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,10 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon --delay 1000ms ./src/app.js"
   },
-  "author": "",
+  "author": "one-pieces",
   "license": "ISC",
   "dependencies": {
-    "json-server": "^0.17.3",
-    "nodemon": "^2.0.22"
+    "json-server": "^0.17.0",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

@@ -14,7 +14,7 @@
               :placeholder="placeholder"
               @keypress="onKeypress"
               @click="emits('inputClick')"
-              @input="(e: InputEvent) => emits('update:modelValue', (e.target as HTMLInputElement).value)"
+              @input="(e: Event) => emits('update:modelValue', (e.target as HTMLInputElement).value)"
             />
             <div v-if="$slots['right-icon']" class="op-field__right-icon">
               <slot name="right-icon"></slot>

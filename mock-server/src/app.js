@@ -1,6 +1,7 @@
 const path = require('path')
 const jsonServer = require('json-server')
 const router = require('./router')
+const TokenService = require('./service/token')
 const db = require('./db')()
 
 const server = jsonServer.create()
@@ -8,9 +9,18 @@ const server = jsonServer.create()
 const middlewares = jsonServer.defaults({
   static: path.join(__dirname, '../public')
 })
-
 server.use(middlewares)
+// req.body
 server.use(jsonServer.bodyParser)
+// 鉴权
+server.use((req, res, next) => {
+  if (TokenService.isAuthorized(req)) {
+    next()
+  } else {
+    res.sendStatus(401)
+  }
+})
+
 server.use((req, res, next) => {
   const json = res.json.bind(res)
   res.success = (data) => {
@@ -20,11 +30,11 @@ server.use((req, res, next) => {
       data
     })
   }
-
-  res.fail = (msg, code = -1) => {
+  res.fail = (msg, code = -1, data) => {
     return json({
       code,
-      msg
+      msg,
+      data
     })
   }
   next()
@@ -32,9 +42,11 @@ server.use((req, res, next) => {
 
 router(server)
 const jsonRouter = jsonServer.router(db)
+server.use((req, res, next) => {
+  setTimeout(next, 1000)
+})
 server.use('/api', jsonRouter)
 
 server.listen(8000, () => {
-  // eslint-disable-next-line no-console
-  console.log('服务已启动...')
+  console.log('JSON Server is running at 8000')
 })

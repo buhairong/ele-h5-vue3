@@ -1,6 +1,6 @@
 module.exports = () => {
-  return {
-    name: 'test',
-    desc: '测试'
-  }
+    return {
+        name: 'test',
+        desc: '我是测试数据'
+    }
 }
