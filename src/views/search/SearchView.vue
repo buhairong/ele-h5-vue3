@@ -43,6 +43,7 @@ import OpSearch from '@/components/OpSearch.vue'
 import { fetchSearchData } from '@/api/search'
 import type { ISearchResult } from '@/types'
 import { useToggle } from '@/use/useToggle'
+import { useDebounce } from '@/use/useDebounce'
 
 const HISTORY_TAGS = [
   '比萨',
@@ -70,13 +71,26 @@ const historyTags = computed(() =>
   isHistoryTagShow.value ? HISTORY_TAGS : HISTORY_TAGS.slice(0, 5)
 )
 
-watch(searchValue, (v) => {
+// watch(
+//   searchValue,
+//   useDebounce((v) => {
+//     if (!v) {
+//       searchResult.value = []
+//       return
+//     }
+
+//     onSearch(v as string)
+//   }, 1000)
+// )
+
+const debounceValue = useDebounce(searchValue, 1000)
+watch(debounceValue, (v) => {
   if (!v) {
     searchResult.value = []
     return
   }
 
-  onSearch(v)
+  onSearch(v as string)
 })
 
 const onSearch = async (v: string | number = '') => {
