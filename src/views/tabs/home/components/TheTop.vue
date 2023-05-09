@@ -26,7 +26,9 @@
       </template>
     </OpSearch>
     <div class="search-recommend">
-      <div v-for="v in recomments" :key="v.value" class="tag">{{ v.label }}</div>
+      <div v-for="v in recomments" :key="v.value" class="tag" @click="emits('searchClick')">
+        {{ v.label }}
+      </div>
     </div>
   </div>
 </template>
