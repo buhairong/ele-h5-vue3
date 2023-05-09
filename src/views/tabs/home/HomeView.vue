@@ -4,6 +4,11 @@
       <SearchView v-if="isSearchViewShow" @cancel="toggleSearchView"></SearchView>
     </Transition>
     <TheTop :recomments="recomments" @searchClick="toggleSearchView" />
+    <OpLoading :loading="pending" type="skeleton">
+      <!-- <template #template>
+        <div>loading</div>
+      </template> -->
+    </OpLoading>
   </div>
 </template>
 
@@ -11,6 +16,10 @@
 import TheTop from './components/TheTop.vue'
 import SearchView from '@/views/search/SearchView.vue'
 import { useToggle } from '@/use/useToggle'
+import { useAsync } from '@/use/useAsync'
+import { fetchHomePageData } from '@/api/home'
+import type { IHomeInfo } from '@/types'
+import OpLoading from '@/components/OpLoading.vue'
 
 const recomments = [
   {
@@ -24,6 +33,8 @@ const recomments = [
 ]
 
 const [isSearchViewShow, toggleSearchView] = useToggle(false)
+
+const { pending, data } = useAsync(fetchHomePageData, {} as IHomeInfo)
 </script>
 
 <style lang="scss" scoped>
