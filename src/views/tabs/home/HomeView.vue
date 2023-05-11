@@ -10,6 +10,9 @@
       </div>
       <TheTransformer :data="data.transformer" />
       <ScrollBar :data="data.scrollBarInfoList" />
+      <div class="home-page__activity">
+        <CountDown :data="data.countdown" />
+      </div>
     </OpLoading>
   </div>
 </template>
@@ -18,6 +21,7 @@
 import TheTop from './components/TheTop.vue'
 import TheTransformer from './components/TheTransformer.vue'
 import ScrollBar from './components/ScrollBar.vue'
+import CountDown from './components/CountDown.vue'
 import SearchView from '@/views/search/SearchView.vue'
 import { useToggle } from '@/use/useToggle'
 import { useAsync } from '@/use/useAsync'
@@ -56,6 +60,12 @@ const { pending, data } = useAsync(fetchHomePageData, {
       padding-top: 10px;
       background: #fff;
     }
+  }
+  &__activity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
   }
 }
 </style>
