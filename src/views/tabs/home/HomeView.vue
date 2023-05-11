@@ -9,6 +9,7 @@
         <img v-for="v in data.banner" :key="v.imgUrl" :src="v.imgUrl" />
       </div>
       <TheTransformer :data="data.transformer" />
+      <ScrollBar :data="data.scrollBarInfoList" />
     </OpLoading>
   </div>
 </template>
@@ -16,16 +17,24 @@
 <script setup lang="ts">
 import TheTop from './components/TheTop.vue'
 import TheTransformer from './components/TheTransformer.vue'
+import ScrollBar from './components/ScrollBar.vue'
 import SearchView from '@/views/search/SearchView.vue'
 import { useToggle } from '@/use/useToggle'
 import { useAsync } from '@/use/useAsync'
 import { fetchHomePageData } from '@/api/home'
-import type { IHomeInfo } from '@/types'
+import type { ICountdown, IHomeInfo } from '@/types'
 import OpLoading from '@/components/OpLoading.vue'
 
 const [isSearchViewShow, toggleSearchView] = useToggle(false)
 
-const { pending, data } = useAsync(fetchHomePageData, {} as IHomeInfo)
+const { pending, data } = useAsync(fetchHomePageData, {
+  banner: [],
+  searchRecomments: [],
+  transformer: [],
+  scrollBarInfoList: [],
+  countdown: {} as ICountdown,
+  activites: []
+} as IHomeInfo)
 </script>
 
 <style lang="scss" scoped>

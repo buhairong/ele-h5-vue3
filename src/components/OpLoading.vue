@@ -24,6 +24,7 @@ defineProps<IProps>()
 
 <style lang="scss">
 .op-loading-view {
+  background: #fff;
   .loading-wrapper {
     display: flex;
     justify-content: center;
