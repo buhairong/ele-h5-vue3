@@ -1,4 +1,5 @@
 import { computed, ref } from 'vue'
+import { rAF, cancelRAF } from '@/utils/raf'
 
 type CurrentTime = {
   days: number
@@ -38,19 +39,23 @@ function parseTime(time: number) {
   }
 }
 
+const isSameSecond = (time1: number, time2: number) => {
+  return Math.floor(time1 / SECOND) === Math.floor(time2 / SECOND)
+}
+
 export function useCountDown(options: useCountDownOptions) {
+  let rafId: number
   let counting: boolean
   let endTime: number
   const remain = ref(options.time)
   const current = computed(() => parseTime(remain.value))
 
+  const pause = () => {
+    counting = false
+    cancelRAF(rafId)
+  }
+
   const getCurrentRemain = () => Math.max(endTime - Date.now(), 0)
-
-  const pause = () => {}
-
-  const reset = () => {}
-
-  const rAF = (fn: Function) => {}
 
   const setRemain = (value: number) => {
     remain.value = value
@@ -63,7 +68,7 @@ export function useCountDown(options: useCountDownOptions) {
   }
 
   const microTick = () => {
-    rAF(() => {
+    rafId = rAF(() => {
       if (counting) {
         const remainRemain = getCurrentRemain()
         setRemain(remainRemain)
@@ -76,9 +81,16 @@ export function useCountDown(options: useCountDownOptions) {
   }
 
   const macroTick = () => {
-    rAF(() => {
+    rafId = rAF(() => {
       if (counting) {
-        //
+        const remainRemain = getCurrentRemain()
+        if (!isSameSecond(remainRemain, remain.value) || remainRemain === 0) {
+          setRemain(remainRemain)
+        }
+
+        if (remain.value > 0) {
+          macroTick()
+        }
       }
     })
   }
@@ -97,6 +109,11 @@ export function useCountDown(options: useCountDownOptions) {
       counting = true
       tick()
     }
+  }
+
+  const reset = (totalTime = options.time) => {
+    pause()
+    remain.value = totalTime
   }
 
   return {

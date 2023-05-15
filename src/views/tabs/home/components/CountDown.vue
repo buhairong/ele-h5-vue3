@@ -2,11 +2,11 @@
   <div class="home-countdown">
     <div class="home-countdown__info">
       <img class="logo" src="@/assets/imgs/index_page/count-down.png" alt="" />
-      <span class="number">{{ padStart(1) }}</span>
+      <span class="number">{{ padStart(current.hours) }}</span>
       <span class="colon">:</span>
-      <span class="number">{{ padStart(1) }}</span>
+      <span class="number">{{ padStart(current.minutes) }}</span>
       <span class="colon">:</span>
-      <span class="number">{{ padStart(1) }}</span>
+      <span class="number">{{ padStart(current.seconds) }}</span>
     </div>
     <div class="home-countdown__goods">
       <img :src="data.goods.imgUrl" alt="" class="goods-img" />
@@ -25,12 +25,21 @@
 
 <script setup lang="ts">
 import type { ICountdown } from '@/types'
+import { useCountDown } from '@/use/useCountDown'
 
 interface IPros {
   data: ICountdown
 }
 
 const props = defineProps<IPros>()
+
+const countDown = useCountDown({
+  time: props.data.time
+})
+
+const { current } = countDown
+
+countDown.start()
 
 const padStart = (num: number) => {
   return num.toString().padStart(2, '0')
