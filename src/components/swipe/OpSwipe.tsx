@@ -1,4 +1,4 @@
-import { defineComponent, ref, reactive, computed, onMounted } from 'vue'
+import { defineComponent, ref, reactive, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { createNameSpace } from '@/utils/create'
 import { clamp } from '@/utils/format'
 import { doubleRaf } from '@/utils/raf'
@@ -70,6 +70,9 @@ export default defineComponent({
       }
       return 0
     })
+    const activeIndicator = computed(() => {
+      return (state.active + count.value) % count.value
+    })
 
     let timeout: number
     const stopAutoPlay = () => clearTimeout(timeout)
@@ -103,7 +106,7 @@ export default defineComponent({
       if (props.loop) {
         // 正向滚动，从左向右
         if (children[0] && targetOffset !== minOffset.value) {
-          const outRightBound = targetOffset > 0
+          const outRightBound = targetOffset < minOffset.value
           children[0].setOffset(outRightBound ? trackSize.value : 0)
         }
         // 反向滚动，从右向左
@@ -166,13 +169,29 @@ export default defineComponent({
       autoPlay()
     }
 
+    const renderDot = (item: string, index: number) => {
+      const active = index === activeIndicator.value
+      return <i class={bem('indicator', { active })}></i>
+    }
+
+    const renderIndicator = () => {
+      if (props.showIndicators) {
+        return <div class={bem('indicators')}>{Array(count.value).fill('').map(renderDot)}</div>
+      }
+    }
+
     onMounted(init)
+
+    onBeforeUnmount(stopAutoPlay)
+
+    watch(() => props.autoplay, autoPlay)
 
     return () => (
       <div ref={root} class={bem()}>
         <div ref={track} style={trackStyle.value} class={bem('track')}>
           {slots.default?.()}
         </div>
+        {renderIndicator()}
       </div>
     )
   }
