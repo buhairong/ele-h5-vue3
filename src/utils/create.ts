@@ -14,7 +14,7 @@ export function createBEM(name: string) {
   }
 }
 
-export function createNameSpace(name: string) {
+export function createNamespace(name: string) {
   const prefixedName = `op-${name}`
   return [prefixedName, createBEM(prefixedName)] as const
 }

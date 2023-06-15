@@ -1,29 +1,31 @@
 import type { CSSProperties } from 'vue'
-import { computed, defineComponent, reactive } from 'vue'
-import { createNameSpace } from '@/utils/create'
+import { defineComponent, computed, reactive } from 'vue'
+import { createNamespace } from '@/utils/create'
 import { useExpose } from '@/use/useExpose'
+import { useParent } from '@/use/useParent'
 import { SWIPE_KEY } from './OpSwipe'
 
-const [name, bem] = createNameSpace('swipe-item')
+const [name, bem] = createNamespace('swipe-item')
+
 export default defineComponent({
   name,
-  set(props, { slots }) {
+  setup(props, { slots }) {
     const state = reactive({
-      offset: 0
+      offset: 0,
     })
     const { parent } = useParent(SWIPE_KEY)
+
     const style = computed(() => {
       const style: CSSProperties = {}
+
       if (parent) {
         if (parent.size.value) {
           style[parent.props.vertical ? 'height' : 'width'] = `${parent.size.value}px`
         }
+        if (state.offset) {
+          style.transform = `translate${parent.props.vertical ? 'Y' : 'X'}(${state.offset}px)`
+        }
       }
-
-      if (state.offset) {
-        style.transform = `translate${parent.props.vertical ? 'Y' : 'X'}(${state.offset}px)`
-      }
-
       return style
     })
 
@@ -31,14 +33,12 @@ export default defineComponent({
       state.offset = offset
     }
 
-    useExpose({
-      setOffset
-    })
+    useExpose({ setOffset })
 
     return () => (
       <div class={bem()} style={style.value}>
         {slots.default?.()}
       </div>
     )
-  }
+  },
 })

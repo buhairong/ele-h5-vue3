@@ -40,5 +40,5 @@ export interface IHomeInfo {
   transformer: ITransformer[]
   scrollBarInfoList: IScrollBarInfo[]
   countdown: ICountdown
-  activites: string[]
+  activities: string[]
 }
