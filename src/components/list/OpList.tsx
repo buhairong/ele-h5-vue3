@@ -3,6 +3,7 @@ import { createNamespace } from '@/utils/create'
 import { Loading as VanLoading } from 'vant'
 import { useEventListener } from '@/use/useEventListener'
 import { useRect } from '@/use/useRect'
+import { useScrollParent } from '@/use/useScrollParent'
 
 const [name, bem] = createNamespace('list')
 
@@ -53,7 +54,7 @@ export default defineComponent({
         if (direction === 'up') {
           isReachEdge = scrollParentRect.top - placeholderRect.top <= offset
         } else {
-          isReachEdge = placeholderRect.bottom = scrollParentRect.bottom <= offset
+          isReachEdge = placeholderRect.bottom - scrollParentRect.bottom <= offset
         }
 
         if (isReachEdge) {
