@@ -3,14 +3,23 @@ export interface ISearchRecomment {
   label: string
 }
 
+export interface ISearchResultList {
+  list: ISearchResult[]
+}
+
 export interface ISearchResult {
   type: number
   label: string
-  resultCount: nunber
+  resultCount: number
 }
 
-export interface ISearchResultList {
-  list: ISearchResult[]
+export interface IHomeInfo {
+  banner: IBanner[]
+  searchRecomments: ISearchRecomment[]
+  transformer: ITransformer[]
+  scrollBarInfoList: IScrollBarInfo[]
+  countdown: ICountdown
+  activities: string[]
 }
 
 export interface IBanner {
@@ -32,13 +41,4 @@ export interface IScrollBarInfo {
 export interface ICountdown {
   time: number
   goods: IGood
-}
-
-export interface IHomeInfo {
-  banner: IBanner[]
-  searchRecomments: ISearchRecomment[]
-  transformer: ITransformer[]
-  scrollBarInfoList: IScrollBarInfo[]
-  countdown: ICountdown
-  activities: string[]
 }

@@ -1,6 +1,6 @@
-import axios from './base'
 import type { IHomeInfo } from '@/types'
+import axios from './base'
 
-export function fetchHomePageData() {
+export const fetchHomePageData = () => {
   return axios.get<IHomeInfo, IHomeInfo>('home_page')
 }
