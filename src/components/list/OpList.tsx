@@ -4,6 +4,7 @@ import { Loading as VanLoading } from 'vant'
 import { useEventListener } from '@/use/useEventListener'
 import { useRect } from '@/use/useRect'
 import { useScrollParent } from '@/use/useScrollParent'
+import './OpList.scss'
 
 const [name, bem] = createNamespace('list')
 

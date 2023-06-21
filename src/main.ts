@@ -25,6 +25,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import lazyPlugin from './directives/lazyLoading'
 import 'vant/lib/index.css'
 import './assets/common.scss'
 
@@ -32,6 +33,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(lazyPlugin)
 
 // app.use(Tabbar)
 // app.use(TabbarItem)
