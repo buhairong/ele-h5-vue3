@@ -33,7 +33,7 @@ import { useAuth } from '@/use/useAuth'
 const username = ref('')
 const password = ref('')
 const onClickLeft = () => history.back()
-const { login } = useAuth
+const { login } = useAuth()
 const onSubmit = async (data: ILoginInfo) => {
   await login(data)
   onClickLeft()
