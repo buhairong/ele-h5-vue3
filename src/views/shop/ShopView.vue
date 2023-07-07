@@ -1,7 +1,9 @@
 <template>
   <div class="shop-page">
     <VanNavBar left-text="返回" left-arrow @click-left="onClickLeft"></VanNavBar>
-    <OpLoadingView :loading="pending" type="skeleton"></OpLoadingView>
+    <OpLoadingView :loading="pending" type="skeleton">
+      <ShopHeader :data="data" />
+    </OpLoadingView>
   </div>
 </template>
 
@@ -11,6 +13,7 @@ import { useRoute } from 'vue-router'
 import { useAsync } from '@/use/useAsync'
 import { fetchShopPageData } from '@/api/shop'
 import OpLoadingView from '@/components/OpLoading.vue'
+import ShopHeader from './components/ShopHeader.vue'
 
 const route = useRoute()
 const { id } = route.params
