@@ -8,6 +8,7 @@
           <component :is="v.component"></component>
         </VanTab>
       </VanTabs>
+      <ShopCart v-if="active === 1" />
     </OpLoadingView>
   </div>
 </template>
@@ -22,6 +23,7 @@ import OpLoadingView from '@/components/OpLoading.vue'
 import ShopHeader from './components/ShopHeader.vue'
 import OpTodo from '@/components/OpTodo.vue'
 import GoodsList from './components/GoodsList.vue'
+import ShopCart from './components/ShopCart.vue'
 
 const TAB_LIST = [
   {
