@@ -29,8 +29,9 @@ const minus = () => {
   store.removeProductFromCart(props.data)
 }
 
-const add = () => {
+const add = (event: Event) => {
   store.pushProductToCart(props.data)
+  eventBus.emit('cart-add', event.target)
 }
 </script>
 
