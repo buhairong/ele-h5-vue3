@@ -28,11 +28,11 @@ export function useLockScroll(shouldLock: () => boolean) {
     }
   })
 
-  const destory = () => shouldLock() && unlock()
+  const destroy = () => shouldLock() && unlock()
 
-  onDeactivated(() => destory)
+  onDeactivated(() => destroy)
 
-  onBeforeUnmount(() => destory)
+  onBeforeUnmount(() => destroy)
 
   watch(shouldLock, (v) => {
     if (v) {

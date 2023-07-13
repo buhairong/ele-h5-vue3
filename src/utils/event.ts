@@ -65,7 +65,7 @@ export class EventEmitter {
     }
   }
 
-  destory() {
+  destroy() {
     this.events = {}
   }
 }
