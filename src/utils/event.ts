@@ -59,7 +59,7 @@ export class EventEmitter {
       if (fn) {
         ret = fn.apply(this, args) as unknown
         if (ret) {
-          return
+          return ret
         }
       }
     }

@@ -1,3 +1,9 @@
+export type Bounces = [boolean, boolean]
+
+export type Rect = {
+  size: string
+}
+
 interface BaseOptions {
   scrollX: boolean
   scrollY: boolean
@@ -16,7 +22,11 @@ export interface Options extends BaseOptions {
   startY: number
 }
 
-export type BehaviorOptions = BaseOptions
+export interface BehaviorOptions extends BaseOptions {
+  scrollable: boolean
+  bounces: Bounces
+  rect: Rect
+}
 
 export class OptionsConstructor implements Options {
   [key: string]: unknown
@@ -61,4 +71,31 @@ export class OptionsConstructor implements Options {
     }
     return this
   }
+}
+
+export function createBehaviorOptions(
+  msOptions: Options,
+  extraProp: 'scrollX' | 'scrollY',
+  bounces: Bounces,
+  rect: Rect
+) {
+  const options = [
+    'momentum',
+    'momentumLimitTime',
+    'momentumLimitDistance',
+    'swipeTime',
+    'swipeBounceTime',
+    'deceleration',
+    'outOfBoundaryDampingFactor'
+  ].reduce(
+    (p, v) => ({
+      [v]: msOptions[v],
+      ...p
+    }),
+    {} as BehaviorOptions
+  )
+  options.scrollable = !!msOptions[extraProp]
+  options.bounces = bounces
+  options.rect = rect
+  return options
 }
