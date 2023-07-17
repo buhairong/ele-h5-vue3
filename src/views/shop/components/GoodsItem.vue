@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import type { IGood } from '@/types'
+import CartControl from './CartControl.vue'
+
+interface IProps {
+  data: IGood
+}
+const props = defineProps<IProps>()
+const router = useRouter()
+const gotoGoods = () => {
+  router.push({
+    name: 'goods',
+    params: { id: props.data.id }
+  })
+}
+</script>
+
 <template>
   <div class="shop-goods-item" @click="gotoGoods">
     <img class="img" v-lazy="data.imgUrl" />
@@ -20,24 +38,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useRouter } from 'vue-router'
-import type { IGood } from '@/types'
-import CartControl from './CartControl.vue'
-
-interface IProps {
-  data: IGood
-}
-const props = defineProps<IProps>()
-const router = useRouter()
-const gotoGoods = () => {
-  router.push({
-    name: 'goods',
-    params: { id: props.data.id }
-  })
-}
-</script>
 
 <style lang="scss" scoped>
 .shop-goods-item {

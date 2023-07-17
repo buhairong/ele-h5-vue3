@@ -71,6 +71,8 @@ export default class Behavior {
     if (pos < this.maxScrollPos) {
       return this.maxScrollPos
     }
+
+    return pos
   }
 
   private momentum(
@@ -140,8 +142,8 @@ export default class Behavior {
   }
 
   end(duration: number) {
-    let momentumInfo = {
-      destination: 0,
+    let momentumInfo: { destination?: number; duration?: number } = {
+      // destination: 0,
       duration: 0
     }
     const absDist = Math.abs(this.currentPos - this.startPos)

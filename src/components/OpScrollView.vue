@@ -1,13 +1,3 @@
-<template>
-  <div class="op-view-scroll">
-    <div ref="scrollWrapperRef" class="op-view-scroll__wrapper">
-      <div class="op-view-scroll__content">
-        <slot></slot>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { MScrollConstructor } from '@/utils/scroll/MScroll'
 import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue'
@@ -17,28 +7,23 @@ interface IPosition {
   x: number
   y: number
 }
-
-interface IProps {
+interface IPorps {
   data: unknown[]
-  scrollTo: IPosition
+  scrollTo?: IPosition
 }
-
 enum EmitEnum {
   beforeScrollStart = 'beforeScrollStart',
-  scrollStart = 'scrollStart',
+  scrollStart = 'scrlloStart',
   scroll = 'scroll',
   scrollEnd = 'scrollEnd'
 }
-
 interface IEmits {
   (e: EmitEnum, pos: IPosition): void
 }
-
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<IPorps>(), {
   data: () => [],
   scrollTo: () => ({ x: 0, y: 0 })
 })
-
 const emitEvents = Object.keys(EmitEnum) as EmitEnum[]
 const emits = defineEmits<IEmits>()
 
@@ -46,10 +31,9 @@ const initScroll = (el: HTMLElement) => {
   if (!el) {
     return
   }
-
   const scroller = createMScroll(el)
   emitEvents.forEach((event) => {
-    scroller.on(event, (pos: IPosition) => {
+    scroller.on(event, (pos) => {
       emits(event, pos)
     })
   })
@@ -58,7 +42,6 @@ const initScroll = (el: HTMLElement) => {
 
 const scrollWrapperRef = ref()
 let scroller: MScrollConstructor | undefined
-
 onMounted(() => {
   watch(
     () => props.data,
@@ -83,11 +66,20 @@ onMounted(() => {
     }
   )
 })
-
 onUnmounted(() => {
   scroller?.destroy()
 })
 </script>
+
+<template>
+  <div class="op-scroll-view">
+    <div ref="scrollWrapperRef" class="op-scroll-view__wrapper">
+      <div class="op-scroll-view__content">
+        <slot></slot>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .op-scroll-view {

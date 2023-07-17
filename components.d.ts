@@ -11,6 +11,8 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     copy: typeof import('./src/components/OpTodo copy.vue')['default']
     OpLoading: typeof import('./src/components/OpLoading.vue')['default']
+    OpScroll: typeof import('./src/components/OpScroll.vue')['default']
+    OpScrollView: typeof import('./src/components/OpScrollView.vue')['default']
     OpSearch: typeof import('./src/components/OpSearch.vue')['default']
     OpTodo: typeof import('./src/components/OpTodo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

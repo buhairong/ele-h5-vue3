@@ -17,7 +17,7 @@ interface BaseOptions {
 }
 
 export interface Options extends BaseOptions {
-  [key: string]: unknown
+  [key: string]: any
   startX: number
   startY: number
 }

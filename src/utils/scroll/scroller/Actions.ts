@@ -54,7 +54,7 @@ export default class ScrollerActions {
     const prevX = this.scrollBehaviorX.getCurrentPos()
     const prevY = this.scrollBehaviorY.getCurrentPos()
     const newX = this.scrollBehaviorX.move(deltaX)
-    const newY = this.scrollBehaviorX.move(deltaY)
+    const newY = this.scrollBehaviorY.move(deltaY)
     const positionChanged = newX !== prevX || newY !== prevY
     if (!this.contentMoved && positionChanged) {
       this.contentMoved = true
